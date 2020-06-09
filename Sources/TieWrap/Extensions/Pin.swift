@@ -179,24 +179,26 @@ extension UIView {
 		return rightConstraint
 	}
 
-	@discardableResult public func pinHorizontalAnchor(_ anchor:NSLayoutXAxisAnchor, againstOtherHorizontalAnchor otherHorizontalAnchor:NSLayoutXAxisAnchor, withPadding padding:CGFloat = 0, priority:UILayoutPriority = .required, isActive:Bool = true) -> NSLayoutConstraint {
-		self.handleAutoresizingMaskConstraintTranslation()
+// Not currently in use. Do not use... - JAC
 
-		let horzConstraint			= anchor.constraint(equalTo: otherHorizontalAnchor, constant: padding)
-		horzConstraint.isActive		= isActive
-		horzConstraint.priority		= priority
-
-		return horzConstraint
-	}
-
-	@discardableResult public func pinVerticalAnchor(_ anchor:NSLayoutYAxisAnchor, againstOtherVerticalAnchor otherVerticalAnchor:NSLayoutYAxisAnchor, withPadding padding:CGFloat = 0, priority:UILayoutPriority = .required, isActive:Bool = true) -> NSLayoutConstraint {
-		self.handleAutoresizingMaskConstraintTranslation()
-
-		let vertConstraint			= anchor.constraint(equalTo: otherVerticalAnchor, constant: padding)
-		vertConstraint.isActive		= isActive
-		vertConstraint.priority		= priority
-
-		return vertConstraint
-	}
+//	@discardableResult public func pinHorizontalAnchor(_ anchor:NSLayoutXAxisAnchor, againstOtherHorizontalAnchor otherHorizontalAnchor:NSLayoutXAxisAnchor, withPadding padding:CGFloat = 0, priority:UILayoutPriority = .required, isActive:Bool = true) -> NSLayoutConstraint {
+//		self.handleAutoresizingMaskConstraintTranslation()
+//
+//		let horzConstraint			= anchor.constraint(equalTo: otherHorizontalAnchor, constant: padding)
+//		horzConstraint.isActive		= isActive
+//		horzConstraint.priority		= priority
+//
+//		return horzConstraint
+//	}
+//
+//	@discardableResult public func pinVerticalAnchor(_ anchor:NSLayoutYAxisAnchor, againstOtherVerticalAnchor otherVerticalAnchor:NSLayoutYAxisAnchor, withPadding padding:CGFloat = 0, priority:UILayoutPriority = .required, isActive:Bool = true) -> NSLayoutConstraint {
+//		self.handleAutoresizingMaskConstraintTranslation()
+//
+//		let vertConstraint			= anchor.constraint(equalTo: otherVerticalAnchor, constant: padding)
+//		vertConstraint.isActive		= isActive
+//		vertConstraint.priority		= priority
+//
+//		return vertConstraint
+//	}
 
 }
