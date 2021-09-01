@@ -46,13 +46,18 @@ extension UIView {
 	///   - padding: A padding value in points to apply to the top of the view.
 	///   - priority: Priority of constraint.
 	///   - isActive: Whether constraint is active.
+	///   - accountForSafeArea: Whether to account for safe area insets.
 	/// - Returns: Applied top constraint.
-	@discardableResult public func pinToTopOfSuperview(withPadding padding:CGFloat = 0, priority:UILayoutPriority = .required, isActive:Bool = true) -> NSLayoutConstraint {
+	@discardableResult public func pinToTopOfSuperview(withPadding padding:CGFloat = 0, priority:UILayoutPriority = .required, isActive:Bool = true, accountForSafeArea:Bool = false) -> NSLayoutConstraint {
 		precondition(self.superview != nil, "View must first be added to a view to have a superview.")
+
+		guard let superview = self.superview else { fatalError("View required superview before pinning.") }
 
 		self.handleAutoresizingMaskConstraintTranslation()
 
-		let topConstraint			= self.topAnchor.constraint(equalTo: self.superview!.topAnchor, constant: padding)
+		let superviewAnchor			= accountForSafeArea == true ? superview.safeAreaLayoutGuide.topAnchor : superview.topAnchor
+
+		let topConstraint			= self.topAnchor.constraint(equalTo: superviewAnchor, constant: padding)
 		topConstraint.isActive		= isActive
 		topConstraint.priority		= priority
 
@@ -64,13 +69,18 @@ extension UIView {
 	///   - padding: A padding value in points to apply to the bottom of the view.
 	///   - priority: Priority of constraint.
 	///   - isActive: Whether constraint is active.
+	///   - accountForSafeArea: Whether to account for safe area insets.
 	/// - Returns: Applied bottom constraint.
-	@discardableResult public func pinToBottomOfSuperview(withPadding padding:CGFloat = 0, priority:UILayoutPriority = .required, isActive:Bool = true) -> NSLayoutConstraint {
+	@discardableResult public func pinToBottomOfSuperview(withPadding padding:CGFloat = 0, priority:UILayoutPriority = .required, isActive:Bool = true, accountForSafeArea:Bool = false) -> NSLayoutConstraint {
 		precondition(self.superview != nil, "View must first be added to a view to have a superview.")
+
+		guard let superview = self.superview else { fatalError("View required superview before pinning.") }
 
 		self.handleAutoresizingMaskConstraintTranslation()
 
-		let bottomConstraint		= self.bottomAnchor.constraint(equalTo: self.superview!.bottomAnchor, constant: -1 * padding)
+		let superviewAnchor			= accountForSafeArea == true ? superview.safeAreaLayoutGuide.bottomAnchor : superview.bottomAnchor
+
+		let bottomConstraint		= self.bottomAnchor.constraint(equalTo: superviewAnchor, constant: -1 * padding)
 		bottomConstraint.isActive	= isActive
 		bottomConstraint.priority	= priority
 
@@ -82,13 +92,18 @@ extension UIView {
 	///   - padding: A padding value in points to apply to the left of the view.
 	///   - priority: Priority of constraint.
 	///   - isActive: Whether constraint is active.
+	///   - accountForSafeArea: Whether to account for safe area insets.
 	/// - Returns: Applied left constraint.
-	@discardableResult public func pinToLeftOfSuperview(withPadding padding:CGFloat = 0, priority:UILayoutPriority = .required, isActive:Bool = true) -> NSLayoutConstraint {
+	@discardableResult public func pinToLeftOfSuperview(withPadding padding:CGFloat = 0, priority:UILayoutPriority = .required, isActive:Bool = true, accountForSafeArea:Bool = false) -> NSLayoutConstraint {
 		precondition(self.superview != nil, "View must first be added to a view to have a superview.")
+
+		guard let superview = self.superview else { fatalError("View required superview before pinning.") }
 
 		self.handleAutoresizingMaskConstraintTranslation()
 
-		let leftConstraint			= self.leftAnchor.constraint(equalTo: self.superview!.leftAnchor, constant: padding)
+		let superviewAnchor			= accountForSafeArea == true ? superview.safeAreaLayoutGuide.leftAnchor : superview.leftAnchor
+
+		let leftConstraint			= self.leftAnchor.constraint(equalTo: superviewAnchor, constant: padding)
 		leftConstraint.isActive		= isActive
 		leftConstraint.priority		= priority
 
@@ -100,13 +115,18 @@ extension UIView {
 	///   - padding: A padding value in points to apply to the right of the view.
 	///   - priority: Priority of constraint.
 	///   - isActive: Whether constraint is active.
+	///   - accountForSafeArea: Whether to account for safe area insets.
 	/// - Returns: Applied right constraint.
-	@discardableResult public func pinToRightOfSuperview(withPadding padding:CGFloat = 0, priority:UILayoutPriority = .required, isActive:Bool = true) -> NSLayoutConstraint {
+	@discardableResult public func pinToRightOfSuperview(withPadding padding:CGFloat = 0, priority:UILayoutPriority = .required, isActive:Bool = true, accountForSafeArea:Bool = false) -> NSLayoutConstraint {
 		precondition(self.superview != nil, "View must first be added to a view to have a superview.")
+		
+		guard let superview = self.superview else { fatalError("View required superview before pinning.") }
 
 		self.handleAutoresizingMaskConstraintTranslation()
 
-		let rightConstraint			= self.rightAnchor.constraint(equalTo: self.superview!.rightAnchor, constant: -1 * padding)
+		let superviewAnchor			= accountForSafeArea == true ? superview.safeAreaLayoutGuide.rightAnchor : superview.rightAnchor
+		
+		let rightConstraint			= self.rightAnchor.constraint(equalTo: superviewAnchor, constant: -1 * padding)
 		rightConstraint.isActive	= isActive
 		rightConstraint.priority	= priority
 

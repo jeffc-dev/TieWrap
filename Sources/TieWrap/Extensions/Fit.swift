@@ -44,14 +44,15 @@ extension UIView {
 	///   - padding: A padding value in points to apply to all sides of the view.
 	///   - priority: Priority of constraint.
 	///   - isActive: Whether constraint is active.
+	///   - accountForSafeArea: Whether to account for safe area insets.
 	/// - Returns: Tuple with applied top, bottom, left, and right constraints.
-	@discardableResult public func fitSuperview(withPadding padding:CGFloat = 0, priority:UILayoutPriority = .required, isActive:Bool = true) -> (topConstraint: NSLayoutConstraint, bottomConstraint: NSLayoutConstraint, leftConstraint: NSLayoutConstraint, rightConstraint: NSLayoutConstraint) {
+	@discardableResult public func fitSuperview(withPadding padding:CGFloat = 0, priority:UILayoutPriority = .required, isActive:Bool = true, accountForSafeArea:Bool = false) -> (topConstraint: NSLayoutConstraint, bottomConstraint: NSLayoutConstraint, leftConstraint: NSLayoutConstraint, rightConstraint: NSLayoutConstraint) {
 		precondition(self.superview != nil, "View must first be added to a view to have a superview.")
 
 		self.handleAutoresizingMaskConstraintTranslation()
 
-		let (topConstraint, bottomConstraint) = self.fitSuperviewVertically(withPadding: padding, priority: priority, isActive: isActive)
-		let (leftConstraint, rightConstraint) = self.fitSuperviewHorizontally(withPadding: padding, priority: priority, isActive: isActive)
+		let (topConstraint, bottomConstraint) = self.fitSuperviewVertically(withPadding: padding, priority: priority, isActive: isActive, accountForSafeArea: accountForSafeArea)
+		let (leftConstraint, rightConstraint) = self.fitSuperviewHorizontally(withPadding: padding, priority: priority, isActive: isActive, accountForSafeArea: accountForSafeArea)
 
 		return(topConstraint, bottomConstraint, leftConstraint, rightConstraint)
 	}
@@ -61,17 +62,18 @@ extension UIView {
 	///   - padding: A padding value in points to apply to the top and bottom of the view.
 	///   - priority: Priority of constraint.
 	///   - isActive: Whether constraint is active.
+	///   - accountForSafeArea: Whether to account for safe area insets.
 	/// - Returns: Tuple with applied top and bottom constraints.
-	@discardableResult public func fitSuperviewVertically(withPadding padding:CGFloat = 0, priority:UILayoutPriority = .required, isActive:Bool = true) -> (topConstraint: NSLayoutConstraint, bottomConstraint: NSLayoutConstraint) {
+	@discardableResult public func fitSuperviewVertically(withPadding padding:CGFloat = 0, priority:UILayoutPriority = .required, isActive:Bool = true, accountForSafeArea:Bool = false) -> (topConstraint: NSLayoutConstraint, bottomConstraint: NSLayoutConstraint) {
 		precondition(self.superview != nil, "View must first be added to a view to have a superview.")
 
 		self.handleAutoresizingMaskConstraintTranslation()
 
-		let topConstraint			= self.pinToTopOfSuperview(withPadding: padding)
+		let topConstraint			= self.pinToTopOfSuperview(withPadding: padding, priority: priority, isActive: isActive, accountForSafeArea: accountForSafeArea)
 		topConstraint.isActive		= isActive
 		topConstraint.priority		= priority
 
-		let bottomConstraint		= self.pinToBottomOfSuperview(withPadding: padding)
+		let bottomConstraint		= self.pinToBottomOfSuperview(withPadding: padding, priority: priority, isActive: isActive, accountForSafeArea: accountForSafeArea)
 		bottomConstraint.isActive	= isActive
 		bottomConstraint.priority	= priority
 
@@ -83,17 +85,18 @@ extension UIView {
 	///   - padding: A padding value in points to apply to the left and right of the view.
 	///   - priority: Priority of constraint.
 	///   - isActive: Whether constraint is active.
+	///   - accountForSafeArea: Whether to account for safe area insets.
 	/// - Returns: Tuple with applied left and right constraints.
-	@discardableResult public func fitSuperviewHorizontally(withPadding padding:CGFloat = 0, priority:UILayoutPriority = .required, isActive:Bool = true) -> (leftConstraint: NSLayoutConstraint, rightConstraint: NSLayoutConstraint) {
+	@discardableResult public func fitSuperviewHorizontally(withPadding padding:CGFloat = 0, priority:UILayoutPriority = .required, isActive:Bool = true, accountForSafeArea:Bool = false) -> (leftConstraint: NSLayoutConstraint, rightConstraint: NSLayoutConstraint) {
 		precondition(self.superview != nil, "View must first be added to a view to have a superview.")
 
 		self.handleAutoresizingMaskConstraintTranslation()
 
-		let leftConstraint			= self.pinToLeftOfSuperview(withPadding: padding)
+		let leftConstraint			= self.pinToLeftOfSuperview(withPadding: padding, priority: priority, isActive: isActive, accountForSafeArea: accountForSafeArea)
 		leftConstraint.isActive		= isActive
 		leftConstraint.priority		= priority
 
-		let rightConstraint			= self.pinToRightOfSuperview(withPadding: padding)
+		let rightConstraint			= self.pinToRightOfSuperview(withPadding: padding, priority: priority, isActive: isActive, accountForSafeArea: accountForSafeArea)
 		rightConstraint.isActive	= isActive
 		rightConstraint.priority	= priority
 
